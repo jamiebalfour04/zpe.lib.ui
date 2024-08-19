@@ -12,12 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
-import jamiebalfour.zpe.core.ZPEFunction;
-import jamiebalfour.zpe.core.ZPEObject;
-import jamiebalfour.zpe.core.ZPEStructure;
+import jamiebalfour.zpe.core.*;
+import jamiebalfour.zpe.exceptions.BreakPointHalt;
+import jamiebalfour.zpe.exceptions.ExitHalt;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
+import jamiebalfour.zpe.interfaces.ZPEType;
 import jamiebalfour.zpe.types.ZPEMap;
+import jamiebalfour.zpe.types.ZPEString;
 
 public class UIBuilderObject extends ZPEStructure {
 
@@ -72,7 +73,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       frame.setSize(300, 300);
       frame.setLayout(new FlowLayout());
@@ -115,7 +116,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       frame.setSize(HelperFunctions.StringToInteger(parameters.get("x").toString()), HelperFunctions.StringToInteger(parameters.get("y").toString()));
 
@@ -142,7 +143,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       ZPEUIButtonObject obj = new ZPEUIButtonObject(getRuntime(), parent, frame, parameters.get("text").toString());
       return obj;
@@ -168,7 +169,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       ZPEUIListObject obj = new ZPEUIListObject(getRuntime(), parent, frame);
       return obj;
@@ -194,7 +195,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       int y = 0;
       int a = 2;
@@ -219,7 +220,7 @@ public class UIBuilderObject extends ZPEStructure {
         //lastY = y;
       }
 
-      return "";
+      return new ZPEString("");
 
     }
 
@@ -243,7 +244,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       shutdownOnClose = jamiebalfour.zpe.core.ZPEHelperFunctions.ToBoolean(parameters.get("value").toString());
 
@@ -270,7 +271,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       String id = parameters.get("id").toString();
       return elements.get(id);
@@ -296,7 +297,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUITurtleObject(getRuntime(), parent, frame);
     }
@@ -320,7 +321,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       JOptionPane.showMessageDialog(frame.getContentPane(), parameters.get("text").toString());
 
@@ -347,7 +348,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       frame.setVisible(true);
 
       return parent;
@@ -373,7 +374,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       frame.setVisible(false);
 
       frame.dispose();
@@ -413,7 +414,11 @@ public class UIBuilderObject extends ZPEStructure {
     public void respondToAction(String a) {
       if (actions.containsKey(a)) {
         ZPEFunction f = actions.get(a);
-        getRuntime().RunZPEFunction(f);
+        try {
+          ZPEKit.runFunction(f, new ZPEType[0]);
+        } catch (ExitHalt | BreakPointHalt e) {
+          //Ignore
+        }
       }
     }
 
@@ -427,7 +432,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
 
         frame.getGraphics().drawLine(xcur, ycur, HelperFunctions.StringToInteger(parameters.get("x2").toString()), HelperFunctions.StringToInteger(parameters.get("y2").toString()));
@@ -473,7 +478,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         String id = parameters.get("id").toString();
         UIBuilderObject p = (UIBuilderObject) ((UIBuilderObject.ZPEUIItemObject) parent).getParentObject();
@@ -550,7 +555,11 @@ public class UIBuilderObject extends ZPEStructure {
     public void respondToAction(String a) {
       if (actions.containsKey(a)) {
         ZPEFunction f = actions.get(a);
-        getRuntime().RunZPEFunction(f);
+        try {
+          ZPEKit.runFunction(f, new ZPEType[0]);
+        } catch (ExitHalt | BreakPointHalt e) {
+          //Ignore
+        }
       }
     }
 
@@ -564,7 +573,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         if (parameters.get("method") instanceof ZPEFunction) {
           ZPEFunction zf = (ZPEFunction) parameters.get("method");
@@ -596,7 +605,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         btn.setLabel(parameters.get("text").toString());
 
@@ -625,7 +634,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         btn.getParent().remove(btn);
 
@@ -675,7 +684,11 @@ public class UIBuilderObject extends ZPEStructure {
     public void respondToAction(String a) {
       if (actions.containsKey(a)) {
         ZPEFunction f = actions.get(a);
-        getRuntime().RunZPEFunction(f);
+        try {
+          ZPEKit.runFunction(f, new ZPEType[0]);
+        } catch (ExitHalt | BreakPointHalt e) {
+          //Ignore
+        }
       }
     }
 
@@ -689,7 +702,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         if (parameters.get("method") instanceof ZPEFunction) {
           ZPEFunction zf = (ZPEFunction) parameters.get("method");
@@ -721,7 +734,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         lst.add(parameters.get("text").toString());
 
@@ -750,7 +763,7 @@ public class UIBuilderObject extends ZPEStructure {
       }
 
       @Override
-      public Object MainMethod(HashMap<String, Object> parameters, ZPEObject parent) {
+      public ZPEType MainMethod(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
         lst.getParent().remove(lst);
 
