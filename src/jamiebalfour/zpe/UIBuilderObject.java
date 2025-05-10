@@ -21,7 +21,14 @@ public class UIBuilderObject extends ZPEStructure {
     private final java.util.List<Line2D> lines = new ArrayList<>();
 
     public void addLine(int x1, int y1, int x2, int y2) {
-      lines.add(new Line2D.Float(x1, y1, x2, y2));
+      synchronized (lines) {
+        lines.add(new Line2D.Float(x1, y1, x2, y2));
+      }
+      repaint();
+    }
+
+    public void clear(){
+      lines.clear();
       repaint();
     }
 
@@ -29,7 +36,14 @@ public class UIBuilderObject extends ZPEStructure {
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
       Graphics2D g2 = (Graphics2D) g;
-      for (Line2D line : lines) {
+
+      // Defensive copy to avoid ConcurrentModificationException
+      java.util.List<Line2D> safeLines;
+      synchronized (lines) {
+        safeLines = new ArrayList<>(lines); // clone it safely
+      }
+
+      for (Line2D line : safeLines) {
         g2.draw(line);
       }
     }

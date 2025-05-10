@@ -27,6 +27,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
     addNativeMethod("turn", new turn_Command());
     addNativeMethod("pen_up", new pen_up_Command());
     addNativeMethod("pen_down", new pen_down_Command());
+    addNativeMethod("clear", new clear_Command());
   }
 
   public class center_Command implements ZPEObjectNativeMethod {
@@ -135,6 +136,26 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
     public String getName() {
       return "pen_down";
+    }
+  }
+
+  public class clear_Command implements ZPEObjectNativeMethod {
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+      penDown = false;
+      panel.clear();
+      return parent;
+    }
+
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "clear";
     }
   }
 }
