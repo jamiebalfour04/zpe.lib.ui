@@ -2,6 +2,12 @@
   <artifact type="jar" build-on-make="true" name="libZPE_UI">
     <output-path>$PROJECT_DIR$/build</output-path>
     <properties id="ant-preprocessing">
+      <options>
+        <file>file://$PROJECT_DIR$/copy.ant</file>
+        <target>copy-jar</target>
+      </options>
+    </properties>
+    <properties id="ant-postprocessing">
       <options enabled="true">
         <file>file://$PROJECT_DIR$/copy.ant</file>
         <target>copy-jar</target>
