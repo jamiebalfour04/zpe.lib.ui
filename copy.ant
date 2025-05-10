@@ -1,0 +1,15 @@
+<project name="CopyJarExample" default="copy-jar" basedir=".">
+
+    <!-- Define properties for source and destination -->
+    <property name="src.jar" value="build/libZPE_UI.jar"/>
+    <property name="dest.dir1" value="/Users/jamiebalfour/Dropbox/Programs/JARs"/>
+    <property name="dest.dir2" value="/Users/jamiebalfour/jb/zpe/native-plugins"/>
+
+
+    <!-- Main target -->
+    <target name="copy-jar">
+        <copy file="${src.jar}" todir="${dest.dir1}" overwrite="true"/>
+        <copy file="${src.jar}" todir="${dest.dir2}" overwrite="true"/>
+    </target>
+
+</project>

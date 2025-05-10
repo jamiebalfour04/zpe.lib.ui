@@ -25,7 +25,7 @@ public class Plugin implements ZPELibrary {
 
   @Override
   public String getName() {
-    return "libZPE-UI";
+    return "libZPE_UI";
   }
 
   @Override
