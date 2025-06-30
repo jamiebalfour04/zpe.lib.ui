@@ -44,6 +44,11 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{"id"};
     }
 
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
+    }
+
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       String new_id = params.get("id").toString();
       ownerObj.changeId(id, new_id, parent);
@@ -61,6 +66,11 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
   public class destroy_Command implements ZPEObjectNativeMethod {
     public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
       return new String[]{};
     }
 

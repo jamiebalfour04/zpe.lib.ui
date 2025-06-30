@@ -112,6 +112,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       frame.setSize(300, 300);
@@ -156,6 +161,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       frame.setTitle(parameters.get("title").toString());
 
@@ -179,6 +189,11 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public String[] getParameterNames() {
       return new String[]{"x", "y"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"number", "number"};
     }
 
     @Override
@@ -208,6 +223,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUIButtonObject(getRuntime(), parent, _this, parameters.get("text").toString());
@@ -232,6 +252,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUIListObject(getRuntime(), parent, _this);
@@ -252,6 +277,11 @@ public class UIBuilderObject extends ZPEStructure {
 
     @Override
     public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
       return new String[]{};
     }
 
@@ -304,6 +334,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{"boolean"};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       shutdownOnClose = jamiebalfour.zpe.core.ZPEHelperFunctions.ToBoolean(parameters.get("value").toString());
@@ -327,6 +362,11 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public String[] getParameterNames() {
       return new String[]{"id"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
     }
 
     @Override
@@ -355,6 +395,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUITurtleObject(getRuntime(), parent, _this);
@@ -375,6 +420,11 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public String[] getParameterNames() {
       return new String[]{"text", "title"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string", "string"};
     }
 
     @Override
@@ -401,6 +451,11 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public String[] getParameterNames() {
       return new String[]{"enabled"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"boolean"};
     }
 
     @Override
@@ -433,6 +488,11 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       frame.setVisible(true);
 
@@ -454,6 +514,11 @@ public class UIBuilderObject extends ZPEStructure {
 
     @Override
     public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
       return new String[]{};
     }
 

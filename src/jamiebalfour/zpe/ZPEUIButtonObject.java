@@ -81,6 +81,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string", "function"};
+    }
+
+    @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       if (parameters.get("method") instanceof ZPEFunction) {
@@ -109,6 +114,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     @Override
     public String[] getParameterNames() {
       return new String[]{"text"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
     }
 
     @Override

@@ -35,6 +35,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       boolean tmpPenDown = penDown;
       penDown = false;
@@ -59,6 +64,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
   public class move_Command implements ZPEObjectNativeMethod {
     public String[] getParameterNames() {
       return new String[]{"distance"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"number"};
     }
 
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
@@ -87,6 +97,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{"angle"};
     }
 
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"number"};
+    }
+
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       angle += HelperFunctions.stringToInteger(params.get("angle").toString());
       return parent;
@@ -103,6 +118,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
   public class pen_up_Command implements ZPEObjectNativeMethod {
     public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
       return new String[]{};
     }
 
@@ -125,6 +145,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       penDown = true;
       return parent;
@@ -141,6 +166,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
   public class clear_Command implements ZPEObjectNativeMethod {
     public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
       return new String[]{};
     }
 
