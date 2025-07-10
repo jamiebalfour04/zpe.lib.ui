@@ -8,6 +8,7 @@ import jamiebalfour.generic.BinarySearchTree;
 import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.exceptions.BreakPointHalt;
 import jamiebalfour.zpe.exceptions.ExitHalt;
+import jamiebalfour.zpe.exceptions.ZPERuntimeException;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
@@ -106,6 +107,9 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
       } catch (ExitHalt | BreakPointHalt e) {
         //Ignore
+      } catch (ZPERuntimeException e){
+        System.err.println(e);
+        //throw e;
       }
     }
   }
@@ -118,7 +122,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       }
     }
     if(!found) {
-      ZPE.printError("Action " + action + " not found on type " + name);
+      ZPECore.printError("Action " + action + " not found on type " + name);
     } else{
       actions.put(action, f);
     }

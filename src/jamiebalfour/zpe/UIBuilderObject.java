@@ -1,66 +1,31 @@
 package jamiebalfour.zpe;
 
-import java.awt.*;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
-
-import javax.swing.*;
-
 import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.ui.BalfWindow;
 import jamiebalfour.zpe.core.*;
+import jamiebalfour.zpe.exceptions.BreakPointHalt;
+import jamiebalfour.zpe.exceptions.ExitHalt;
+import jamiebalfour.zpe.exceptions.MissingParameterException;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
 import jamiebalfour.zpe.types.ZPEMap;
 import jamiebalfour.zpe.types.ZPEString;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+
 public class UIBuilderObject extends ZPEStructure {
 
-  public class TurtlePanel extends JPanel {
-    private final java.util.List<Line2D> lines = new ArrayList<>();
-
-    public void addLine(int x1, int y1, int x2, int y2) {
-      synchronized (lines) {
-        lines.add(new Line2D.Float(x1, y1, x2, y2));
-      }
-      repaint();
-    }
-
-    public void clear(){
-      lines.clear();
-      repaint();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      Graphics2D g2 = (Graphics2D) g;
-
-      // Defensive copy to avoid ConcurrentModificationException
-      java.util.List<Line2D> safeLines;
-      synchronized (lines) {
-        safeLines = new ArrayList<>(lines); // clone it safely
-      }
-
-      for (Line2D line : safeLines) {
-        g2.draw(line);
-      }
-    }
-  }
-
   private static final long serialVersionUID = 13L;
-
-  final JFrame frame = new JFrame();
+  private final ZPEMap elements = new ZPEMap();
+  BalfWindow frame = new BalfWindow("", null);
   TurtlePanel panel = new TurtlePanel();
   UIBuilderObject _this = this;
-  boolean shutdownOnClose = false;
-  private final ZPEMap elements = new ZPEMap();
-
-  public static void main(String[] args) {
-    new UIBuilderObject(null, null);
-  }
-
+  ZPEFunction closeFunction = null;
 
   public UIBuilderObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p) {
     super(z, p, "UIBuilderObject");
@@ -89,6 +54,12 @@ public class UIBuilderObject extends ZPEStructure {
     addNativeMethod("set_always_on_top", new set_always_on_top_Command());
     addNativeMethod("show", new show_Command());
     addNativeMethod("hide", new hide_Command());
+
+
+  }
+
+  public static void main(String[] args) {
+    new UIBuilderObject(null, null);
   }
 
   public void addElement(String id, ZPEObject element, JComponent component) {
@@ -96,47 +67,89 @@ public class UIBuilderObject extends ZPEStructure {
     this.elements.put(new ZPEString(id), element);
   }
 
-  public void changeId(String id, String newId, ZPEObject element){
+  public void changeId(String id, String newId, ZPEObject element) {
     elements.put(new ZPEString(newId), element);
-    if(elements.containsKey(new ZPEString(id))){
+    if (elements.containsKey(new ZPEString(id))) {
       elements.remove(new ZPEString(id));
     }
 
+  }
+
+  public class TurtlePanel extends JPanel {
+    private final java.util.List<Line2D> lines = new ArrayList<>();
+
+    public void addLine(int x1, int y1, int x2, int y2) {
+      synchronized (lines) {
+        lines.add(new Line2D.Float(x1, y1, x2, y2));
+      }
+      repaint();
+    }
+
+    public void clear() {
+      lines.clear();
+      repaint();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      Graphics2D g2 = (Graphics2D) g;
+
+      // Defensive copy to avoid ConcurrentModificationException
+      java.util.List<Line2D> safeLines;
+      synchronized (lines) {
+        safeLines = new ArrayList<>(lines); // clone it safely
+      }
+
+      for (Line2D line : safeLines) {
+        g2.draw(line);
+      }
+    }
   }
 
   public class _construct_Command implements ZPEObjectNativeMethod {
 
     @Override
     public String[] getParameterNames() {
-      return new String[]{"title"};
+      return new String[]{"title", "arc"};
     }
 
     @Override
     public String[] getParameterTypes() {
-      return new String[]{"string"};
+      return new String[]{"string", "number"};
     }
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       frame.setSize(300, 300);
-      frame.add(panel);
-      panel.setLayout(new FlowLayout());
+
+
       if (parameters.containsKey("title"))
         frame.setTitle(parameters.get("title").toString());
 
+      if (parameters.containsKey("arc"))
+        frame.setRounding(HelperFunctions.stringToInteger(parameters.get("arc").toString()));
+
+      frame.initialise();
 
 
-      frame.addWindowListener(
-              new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                  if (shutdownOnClose) {
-                    System.exit(0);
-                  }
-                  frame.dispose();
-                }
-              });
+      frame.add(panel);
+      panel.setLayout(new FlowLayout());
+
+
+      frame.getTitleBar().setCloseListener(e -> {
+        if(closeFunction != null) {
+          try {
+            closeFunction.run();
+            frame.dispose();
+          } catch (ExitHalt ex) {
+            System.exit(0);
+          } catch (BreakPointHalt ex) {
+            throw new RuntimeException(ex);
+          }
+        }
+      });
 
 
       return parent;
@@ -330,18 +343,21 @@ public class UIBuilderObject extends ZPEStructure {
 
     @Override
     public String[] getParameterNames() {
-      return new String[]{"value"};
+      return new String[]{"func"};
     }
 
     @Override
     public String[] getParameterTypes() {
-      return new String[]{"boolean"};
+      return new String[]{"function"};
     }
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
-      shutdownOnClose = jamiebalfour.zpe.core.ZPEHelperFunctions.ToBoolean(parameters.get("value").toString());
+      if(parameters.containsKey("func") && parameters.get("func") instanceof ZPEFunction) {
+        closeFunction = (ZPEFunction) parameters.get("func");
+      }
+
 
       return parent;
     }
@@ -429,6 +445,14 @@ public class UIBuilderObject extends ZPEStructure {
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+
+      if(!parameters.containsKey("text")) {
+        throw new MissingParameterException("text", "alert");
+      }
+
+      if(!parameters.containsKey("title")){
+        throw new MissingParameterException("text", "alert");
+      }
 
       JOptionPane.showMessageDialog(frame.getContentPane(), parameters.get("text").toString(), parameters.get("title").toString(), JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ZPEHelperFunctions.getLogo().getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH)));
 
@@ -541,12 +565,6 @@ public class UIBuilderObject extends ZPEStructure {
     }
 
   }
-
-
-
-
-
-
 
 
 }

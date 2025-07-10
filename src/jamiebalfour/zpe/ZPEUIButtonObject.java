@@ -1,6 +1,7 @@
 package jamiebalfour.zpe;
 
 import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.ui.BalfButton;
 import jamiebalfour.zpe.core.ZPEFunction;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -18,7 +19,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
 
 
 
-  JButton btn;
+  BalfButton btn;
 
   /**
    * Acts as a wrapper to the JButton UI element. Provides suitable actions of
@@ -31,7 +32,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
   public ZPEUIButtonObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject owner, String text) {
     super(z, p, "ZPEButton", owner);
 
-    JButton obj = new JButton(text);
+    BalfButton obj = new BalfButton(text, 4);
     obj.setSize(100, 100);
     obj.setLocation(new Point(100, 100));
 

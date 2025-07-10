@@ -3,7 +3,7 @@
     <!-- Define properties for source and destination -->
     <property name="src.jar" value="build/libZPE_UI.jar"/>
     <property name="dest.dir1" value="/Users/jamiebalfour/Dropbox/Programs/JARs"/>
-    <property name="dest.dir2" value="/Users/jamiebalfour/jb/zpe/native-plugins"/>
+    <property name="dest.dir2" value="/Users/jamiebalfour/Library/Application Support/jamiebalfour/zpe/native-plugins"/>
 
 
     <!-- Main target -->
