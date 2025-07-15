@@ -2,7 +2,7 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.BinarySearchTree;
-import jamiebalfour.ui.BalfWindow;
+import jamiebalfour.ui.windows.BalfWindow;
 import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.exceptions.BreakPointHalt;
 import jamiebalfour.zpe.exceptions.ExitHalt;
@@ -22,7 +22,7 @@ public class UIBuilderObject extends ZPEStructure {
 
   private static final long serialVersionUID = 13L;
   private final ZPEMap elements = new ZPEMap();
-  BalfWindow frame = new BalfWindow("", null);
+  BalfWindow frame;
   TurtlePanel panel = new TurtlePanel();
   UIBuilderObject _this = this;
   ZPEFunction closeFunction = null;
@@ -42,11 +42,14 @@ public class UIBuilderObject extends ZPEStructure {
 
 
     addNativeMethod("_construct", new _construct_Command());
+    addNativeMethod("add", new add_Command());
     addNativeMethod("set_title", new set_title_Command());
+    addNativeMethod("set_footer_text", new set_footer_text_Command());
     addNativeMethod("create_turtle", new create_turtle_Command());
     addNativeMethod("set_size", new set_size_Command());
     addNativeMethod("set_on_close", new set_on_close_Command());
     addNativeMethod("get_element_by_id", new get_element_by_id_Command());
+    addNativeMethod("create_container", new create_container_Command());
     addNativeMethod("create_button", new create_button_Command());
     addNativeMethod("create_list", new create_list_Command());
     addNativeMethod("create_quadratic", new create_quadratic_Command());
@@ -55,11 +58,6 @@ public class UIBuilderObject extends ZPEStructure {
     addNativeMethod("show", new show_Command());
     addNativeMethod("hide", new hide_Command());
 
-
-  }
-
-  public static void main(String[] args) {
-    new UIBuilderObject(null, null);
   }
 
   public void addElement(String id, ZPEObject element, JComponent component) {
@@ -75,7 +73,7 @@ public class UIBuilderObject extends ZPEStructure {
 
   }
 
-  public class TurtlePanel extends JPanel {
+  public static class TurtlePanel extends JPanel {
     private final java.util.List<Line2D> lines = new ArrayList<>();
 
     public void addLine(int x1, int y1, int x2, int y2) {
@@ -122,19 +120,35 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
+      String title = "";
+      int arc = 0;
+
+      if (parameters.containsKey("title"))
+        title = parameters.get("title").toString();
+
+      if (parameters.containsKey("arc"))
+        arc = HelperFunctions.stringToInteger(parameters.get("arc").toString());
+
+
+
+      frame = new BalfWindow(title, arc, Color.white, Color.black, null);
+
       frame.setSize(300, 300);
 
 
-      if (parameters.containsKey("title"))
-        frame.setTitle(parameters.get("title").toString());
 
-      if (parameters.containsKey("arc"))
-        frame.setRounding(HelperFunctions.stringToInteger(parameters.get("arc").toString()));
 
       frame.initialise();
 
+      frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+
+      if(frame.getFooter() != null){
+        frame.getFooter().setText(title);
+      }
 
       frame.add(panel);
+      panel.setOpaque(false);
       panel.setLayout(new FlowLayout());
 
 
@@ -166,6 +180,42 @@ public class UIBuilderObject extends ZPEStructure {
 
   }
 
+  public class add_Command implements ZPEObjectNativeMethod {
+
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"component"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"object"};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+
+      if (parameters.get("component") instanceof ZPEUIItemObject) {
+        ZPEUIItemObject obj = (ZPEUIItemObject) parameters.get("component");
+        addElement(obj.id, obj, obj.component);
+      }
+
+
+      return parent;
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "add";
+    }
+
+  }
+
   public class set_title_Command implements ZPEObjectNativeMethod {
 
     @Override
@@ -180,6 +230,11 @@ public class UIBuilderObject extends ZPEStructure {
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+
+      if(!parameters.containsKey("title")) {
+        throw new MissingParameterException("title", "set_title");
+      }
+
       frame.setTitle(parameters.get("title").toString());
 
 
@@ -197,11 +252,49 @@ public class UIBuilderObject extends ZPEStructure {
 
   }
 
+  public class set_footer_text_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"text"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string"};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+
+      if(!parameters.containsKey("text")) {
+        throw new MissingParameterException("text", "set_footer_text");
+      }
+
+      if(frame.getFooter() != null) {
+        frame.getFooter().setText(parameters.get("text").toString());
+      }
+
+
+      return parent;
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "set_footer_text";
+    }
+
+  }
+
   public class set_size_Command implements ZPEObjectNativeMethod {
 
     @Override
     public String[] getParameterNames() {
-      return new String[]{"x", "y"};
+      return new String[]{"width", "height"};
     }
 
     @Override
@@ -212,7 +305,15 @@ public class UIBuilderObject extends ZPEStructure {
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
-      frame.setSize(HelperFunctions.stringToInteger(parameters.get("x").toString()), HelperFunctions.stringToInteger(parameters.get("y").toString()));
+      if(!parameters.containsKey("width")) {
+        throw new MissingParameterException("width", "set_size");
+      }
+
+      if(!parameters.containsKey("height")) {
+        throw new MissingParameterException("height", "set_size");
+      }
+
+      frame.setSize(HelperFunctions.stringToInteger(parameters.get("width").toString()), HelperFunctions.stringToInteger(parameters.get("height").toString()));
 
       return null;
     }
@@ -228,22 +329,57 @@ public class UIBuilderObject extends ZPEStructure {
 
   }
 
-  public class create_button_Command implements ZPEObjectNativeMethod {
+  public class create_container_Command implements ZPEObjectNativeMethod {
 
     @Override
     public String[] getParameterNames() {
-      return new String[]{"text"};
+      return new String[]{};
     }
 
     @Override
     public String[] getParameterTypes() {
-      return new String[]{"string"};
+      return new String[]{};
     }
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
-      return new ZPEUIButtonObject(getRuntime(), parent, _this, parameters.get("text").toString());
+      return new ZPEUIContainer(getRuntime(), parent, _this);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_container";
+    }
+
+  }
+
+  public class create_button_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"text", "arc"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"string", "number"};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+
+      int arc = 4;
+
+      if(parameters.containsKey("arc")) {
+        arc = HelperFunctions.stringToInteger(parameters.get("arc").toString());
+      }
+
+      return new ZPEUIButtonObject(getRuntime(), parent, _this, parameters.get("text").toString(), arc);
     }
 
     @Override

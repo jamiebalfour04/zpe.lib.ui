@@ -12,6 +12,7 @@ import jamiebalfour.zpe.exceptions.ZPERuntimeException;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
+import jamiebalfour.zpe.types.ZPEString;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,9 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
     super(z, p, name);
     this.name = name;
     addNativeMethod("set_id", new set_id_Command());
+    addNativeMethod("get_id", new get_id_Command());
     addNativeMethod("destroy", new destroy_Command());
+    this.id = this.hashCode() + "";
   }
 
   void setComponent(JComponent component) {
@@ -62,6 +65,29 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
     public String getName() {
       return "set_id";
+    }
+  }
+
+  public class get_id_Command implements ZPEObjectNativeMethod {
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+      return new ZPEString(id);
+    }
+
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "get_id";
     }
   }
 

@@ -7,6 +7,7 @@ import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
+import jamiebalfour.zpe.types.ZPEString;
 
 import javax.swing.*;
 
@@ -14,23 +15,29 @@ public class ZPEUIListObject extends ZPEUIItemObject {
 
   private static final long serialVersionUID = 13L;
 
-  JList lst;
+  JList<String> lst;
+  DefaultListModel<String> model;
 
   public ZPEUIListObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject ownerObject) {
     super(z, p, "ZPEButton", ownerObject);
 
     setSuitableActions(new String[]{"add_item"});
 
-    JList<String> obj = new JList<>();
 
-    lst = obj;
+    model = new DefaultListModel<>();
+    lst = new JList<>(model);
 
-    ownerObject.addElement("", this, obj);
+
+    ownerObject.addElement("", this, lst);
     super.setComponent(lst);
 
     addNativeMethod("on", new on_Command());
     addNativeMethod("add_item", new add_item_Command());
     addNativeMethod("destroy", new destroy_Command());
+    addNativeMethod("remove_item", new remove_item_Command());
+    addNativeMethod("clear", new clear_Command());
+    addNativeMethod("get_selected_index", new get_selected_index_Command());
+    addNativeMethod("get_selected_item", new get_selected_item_Command());
   }
 
   public class on_Command implements ZPEObjectNativeMethod {
@@ -68,8 +75,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
   }
 
-  public static class add_item_Command implements ZPEObjectNativeMethod {
-
+  public class add_item_Command implements ZPEObjectNativeMethod {
 
     @Override
     public String[] getParameterNames() {
@@ -83,11 +89,8 @@ public class ZPEUIListObject extends ZPEUIItemObject {
 
     @Override
     public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
-
-      //lst.add(parameters.get("text").toString());
-
-
-
+      model.addElement(parameters.get("text").toString());
+      respondToAction("add_item");
       return parent;
     }
 
@@ -99,7 +102,120 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public String getName() {
       return "add_item";
     }
+  }
 
+  public class remove_item_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"index"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"number"};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+      int index = Integer.parseInt(parameters.get("index").toString());
+      if (index >= 0 && index < model.size()) {
+        model.remove(index);
+      }
+      return parent;
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "remove_item";
+    }
+  }
+
+  public class clear_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+      model.clear();
+      return parent;
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "clear";
+    }
+  }
+
+  public class get_selected_index_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+      return new ZPEString(lst.getSelectedIndex() + "");
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "get_selected_index";
+    }
+  }
+
+  public class get_selected_item_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+      Object val = lst.getSelectedValue();
+      return val != null ? new ZPEString(val.toString()) : new ZPEString("");
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "get_selected_item";
+    }
   }
 
 
