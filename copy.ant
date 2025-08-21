@@ -1,7 +1,7 @@
 <project name="CopyJarExample" default="copy-jar" basedir=".">
 
     <!-- Define properties for source and destination -->
-    <property name="src.jar" value="build/libZPE_UI.jar"/>
+    <property name="src.jar" value="build/zpe.lib.ui.jar"/>
     <property name="dest.dir1" value="/Users/jamiebalfour/Dropbox/Programs/JARs"/>
     <property name="dest.dir2" value="/Users/jamiebalfour/Library/Application Support/jamiebalfour/zpe/native-plugins"/>
 

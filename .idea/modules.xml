@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/libZPE-UI.iml" filepath="$PROJECT_DIR$/libZPE-UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zpe.lib.ui.iml" filepath="$PROJECT_DIR$/zpe.lib.ui.iml" />
     </modules>
   </component>
 </project>

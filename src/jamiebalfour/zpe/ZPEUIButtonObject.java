@@ -1,8 +1,12 @@
 package jamiebalfour.zpe;
 
+import jamiebalfour.FileHelperFunctions;
+import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.BinarySearchTree;
 import jamiebalfour.ui.components.BalfButton;
+import jamiebalfour.zpe.api.ZPEFile;
 import jamiebalfour.zpe.core.ZPEFunction;
+import jamiebalfour.zpe.core.ZPEInstance;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
@@ -12,6 +16,8 @@ import jamiebalfour.zpe.objects.ColourObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class ZPEUIButtonObject extends ZPEUIItemObject {
 
@@ -40,6 +46,8 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     setSuitableActions(new String[]{"double_click", "click", "middle_click", "right_click", "set_text"});
 
     this.btn = obj;
+
+
 
     super.setComponent(btn);
 

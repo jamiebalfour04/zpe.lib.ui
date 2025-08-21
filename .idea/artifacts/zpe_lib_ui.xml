@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="libZPE_UI">
+  <artifact type="jar" build-on-make="true" name="zpe.lib.ui">
     <output-path>$PROJECT_DIR$/build</output-path>
     <properties id="ant-preprocessing">
       <options>
@@ -13,8 +13,8 @@
         <target>copy-jar</target>
       </options>
     </properties>
-    <root id="archive" name="libZPE_UI.jar">
-      <element id="module-output" name="libZPE-UI" />
+    <root id="archive" name="zpe.lib.ui.jar">
+      <element id="module-output" name="zpe.lib.ui" />
     </root>
   </artifact>
 </component>
