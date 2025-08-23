@@ -24,6 +24,11 @@ public class Plugin implements ZPELibrary {
   }
 
   @Override
+  public boolean supportsWindows() {
+    return true;
+  }
+
+  @Override
   public String getName() {
     return "libZPE_UI";
   }
@@ -32,4 +37,16 @@ public class Plugin implements ZPELibrary {
   public String getVersionInfo() {
     return "1.0";
   }
+
+  @Override
+  public boolean supportsMacOs(){
+    return true;
+  }
+
+  @Override
+  public boolean supportsLinux() {
+    return true;
+  }
+
+
 }
