@@ -18,7 +18,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
   JList<String> lst;
   DefaultListModel<String> model;
 
-  public ZPEUIListObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject ownerObject) {
+  public ZPEUIListObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject ownerObject) {
     super(z, p, "ZPEButton", ownerObject);
 
     setSuitableActions(new String[]{"add_item"});

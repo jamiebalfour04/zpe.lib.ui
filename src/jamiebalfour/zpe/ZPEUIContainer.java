@@ -18,7 +18,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
   BalfPanel panel;
   HashMap<String, ZPEUIItemObject> children = new HashMap<>();
 
-  public ZPEUIContainer(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject obj) {
+  public ZPEUIContainer(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject obj) {
     super(z, p, "container", obj);
 
     panel = new BalfPanel();

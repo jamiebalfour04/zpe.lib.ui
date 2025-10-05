@@ -21,7 +21,7 @@ import java.util.HashMap;
 // -------- UI component base wrapper --------
 public abstract class ZPEUIItemObject extends ZPEStructure {
   protected JComponent component;
-  protected UIBuilderObject ownerObj;
+  protected ZPEUIFrameObject ownerObj;
   String id = "";
   String name;
 
@@ -30,7 +30,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
   private final HashMap<String, ZPEFunction> actions = new HashMap<>();
 
-  public ZPEUIItemObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, String name, UIBuilderObject obj) {
+  public ZPEUIItemObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, String name, ZPEUIFrameObject obj) {
     super(z, p, name);
     this.name = name;
     addNativeMethod("set_id", new set_id_Command());

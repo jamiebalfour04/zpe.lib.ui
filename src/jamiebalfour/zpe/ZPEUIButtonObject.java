@@ -1,12 +1,8 @@
 package jamiebalfour.zpe;
 
-import jamiebalfour.FileHelperFunctions;
-import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.BinarySearchTree;
 import jamiebalfour.ui.components.BalfButton;
-import jamiebalfour.zpe.api.ZPEFile;
 import jamiebalfour.zpe.core.ZPEFunction;
-import jamiebalfour.zpe.core.ZPEInstance;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
@@ -14,10 +10,7 @@ import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
 import jamiebalfour.zpe.objects.ColourObject;
 
-import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class ZPEUIButtonObject extends ZPEUIItemObject {
 
@@ -36,7 +29,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
    * @param owner The UIBuilder that created this
    * @param text The text on the button
    */
-  public ZPEUIButtonObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject owner, String text, int arc) {
+  public ZPEUIButtonObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject owner, String text, int arc) {
     super(z, p, "ZPEButton", owner);
 
     BalfButton obj = new BalfButton(text, arc);

@@ -10,12 +10,12 @@ import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.interfaces.ZPEType;
 
 public class ZPEUITurtleObject extends ZPEStructure {
-  private final UIBuilderObject.TurtlePanel panel;
+  private final ZPEUIFrameObject.TurtlePanel panel;
   private int x = 0, y = 0;
   private double angle = 0; // Facing right
   private boolean penDown = true;
 
-  public ZPEUITurtleObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, UIBuilderObject ownerObject) {
+  public ZPEUITurtleObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject ownerObject) {
     super(z, p, "ZPETurtle");
 
     panel = ownerObject.panel;

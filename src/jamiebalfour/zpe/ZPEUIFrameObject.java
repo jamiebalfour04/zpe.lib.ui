@@ -4,8 +4,6 @@ import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.BinarySearchTree;
 import jamiebalfour.ui.windows.BalfWindow;
 import jamiebalfour.zpe.core.*;
-import jamiebalfour.zpe.exceptions.BreakPointHalt;
-import jamiebalfour.zpe.exceptions.ExitHalt;
 import jamiebalfour.zpe.exceptions.MissingParameterException;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
@@ -18,21 +16,17 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-public class UIBuilderObject extends ZPEStructure {
+public class ZPEUIFrameObject extends ZPEStructure {
 
   private static final long serialVersionUID = 13L;
   private final ZPEMap elements = new ZPEMap();
   BalfWindow frame;
   TurtlePanel panel = new TurtlePanel();
-  UIBuilderObject _this = this;
+  ZPEUIFrameObject _this = this;
   ZPEFunction closeFunction = null;
 
-  public UIBuilderObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p) {
-    super(z, p, "UIBuilderObject");
-    if (jamiebalfour.zpe.core.ZPEHelperFunctions.isHeadless()) {
-      System.err.println("UIBuilder object cannot be created because it is being run in a headless (non-GUI supporting) environment.");
-      return;
-    }
+  public ZPEUIFrameObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p) {
+    super(z, p, "ZPEFrame");
 
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -40,8 +34,6 @@ public class UIBuilderObject extends ZPEStructure {
       //Ignored
     }
 
-
-    addNativeMethod("_construct", new _construct_Command());
     addNativeMethod("add", new add_Command());
     addNativeMethod("set_title", new set_title_Command());
     addNativeMethod("set_footer_text", new set_footer_text_Command());
@@ -105,80 +97,7 @@ public class UIBuilderObject extends ZPEStructure {
     }
   }
 
-  public class _construct_Command implements ZPEObjectNativeMethod {
 
-    @Override
-    public String[] getParameterNames() {
-      return new String[]{"title", "arc"};
-    }
-
-    @Override
-    public String[] getParameterTypes() {
-      return new String[]{"string", "number"};
-    }
-
-    @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
-
-      String title = "";
-      int arc = 0;
-
-      if (parameters.containsKey("title"))
-        title = parameters.get("title").toString();
-
-      if (parameters.containsKey("arc"))
-        arc = HelperFunctions.stringToInteger(parameters.get("arc").toString());
-
-
-
-      frame = new BalfWindow(title, arc, Color.white, Color.black, null);
-
-      frame.setSize(300, 300);
-
-
-
-
-      frame.initialise();
-
-      frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-
-
-      if(frame.getFooter() != null){
-        frame.getFooter().setText(title);
-      }
-
-      frame.add(panel);
-      panel.setOpaque(false);
-      panel.setLayout(new FlowLayout());
-
-
-      frame.getTitleBar().setCloseListener(e -> {
-        if(closeFunction != null) {
-          try {
-            closeFunction.run();
-            frame.dispose();
-          } catch (ExitHalt ex) {
-            System.exit(0);
-          } catch (BreakPointHalt ex) {
-            throw new RuntimeException(ex);
-          }
-        }
-      });
-
-
-      return parent;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-      return 0;
-    }
-
-    public String getName() {
-      return "_construct";
-    }
-
-  }
 
   public class add_Command implements ZPEObjectNativeMethod {
 

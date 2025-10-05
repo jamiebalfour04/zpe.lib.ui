@@ -1,4 +1,4 @@
-import jamiebalfour.zpe.UIBuilderObject;
+import jamiebalfour.zpe.ZPEUIBuilderObject;
 import jamiebalfour.zpe.core.ZPEStructure;
 import jamiebalfour.zpe.interfaces.ZPECustomFunction;
 import jamiebalfour.zpe.interfaces.ZPELibrary;
@@ -19,7 +19,7 @@ public class Plugin implements ZPELibrary {
   @Override
   public Map<String, Class<? extends ZPEStructure>> getObjects() {
     Map<String, Class<? extends ZPEStructure>> m = new HashMap<>();
-    m.put("UIBuilder", UIBuilderObject.class);
+    m.put("UIBuilder", ZPEUIBuilderObject.class);
     return m;
   }
 
@@ -30,7 +30,7 @@ public class Plugin implements ZPELibrary {
 
   @Override
   public String getName() {
-    return "libZPE_UI";
+    return "libUI";
   }
 
   @Override
