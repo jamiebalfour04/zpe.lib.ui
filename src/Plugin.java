@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Plugin implements ZPELibrary {
   public static void main(String[] args) {
-    System.out.println("Hello world!");
+    System.out.println("zpe.lib.ui is a plugin for ZPE.");
   }
 
   @Override

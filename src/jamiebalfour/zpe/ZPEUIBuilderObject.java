@@ -1,7 +1,7 @@
 package jamiebalfour.zpe;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.ZPEHelperFunctions;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -44,7 +44,7 @@ public class ZPEUIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       String title = "";
       int arc = 0;

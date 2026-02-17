@@ -1,6 +1,6 @@
 package jamiebalfour.zpe;
 
-import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.components.BalfPanel;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -48,7 +48,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       if(parameters.containsKey("arc")){
         int arc = Integer.parseInt(parameters.get("arc").toString());
@@ -84,7 +84,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       if (parameters.get("component") instanceof ZPEUIItemObject) {
         ZPEUIItemObject obj = (ZPEUIItemObject) parameters.get("component");
@@ -121,7 +121,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
 
       if(parameters.containsKey("colour") && parameters.get("colour") instanceof ColourObject){
         ColourObject colour = (ColourObject) parameters.get("colour");
@@ -158,7 +158,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       String layout = parameters.get("layout").toString().toLowerCase();
       switch (layout) {
         case "flow":
@@ -200,7 +200,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       boolean visible = Boolean.parseBoolean(parameters.get("visible").toString());
       panel.setVisible(visible);
       return parent;
@@ -229,7 +229,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       int width = Integer.parseInt(parameters.get("width").toString());
       int height = Integer.parseInt(parameters.get("height").toString());
       panel.setPreferredSize(new Dimension(width, height));
@@ -260,7 +260,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       String colour = parameters.get("colour").toString();
       int thickness = Integer.parseInt(parameters.get("thickness").toString());
       panel.setBorder(new LineBorder(Color.decode(colour), thickness, true));
@@ -290,7 +290,7 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     }
 
     @Override
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
       panel.removeAll();
       children.clear();
       panel.revalidate();

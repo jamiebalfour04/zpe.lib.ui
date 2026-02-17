@@ -4,7 +4,7 @@ package jamiebalfour.zpe;
  * To add a button, a button object is added
  */
 
-import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.exceptions.BreakPointHalt;
 import jamiebalfour.zpe.exceptions.ExitHalt;
@@ -53,7 +53,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{"string"};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       String new_id = params.get("id").toString();
       ownerObj.changeId(id, new_id, parent);
       return parent;
@@ -78,7 +78,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       return new ZPEString(id);
     }
 
@@ -101,7 +101,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       if (component != null) {
 
 

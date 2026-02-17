@@ -1,7 +1,7 @@
 package jamiebalfour.zpe;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.generic.BinarySearchTree;
+import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.ZPEStructure;
@@ -40,7 +40,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       boolean tmpPenDown = penDown;
       penDown = false;
 
@@ -71,7 +71,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{"number"};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       int distance = HelperFunctions.stringToInteger(params.get("distance").toString());
       int newX = x + (int) (distance * Math.cos(Math.toRadians(angle)));
       int newY = y + (int) (distance * Math.sin(Math.toRadians(angle)));
@@ -102,7 +102,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{"number"};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       angle += HelperFunctions.stringToInteger(params.get("angle").toString());
       return parent;
     }
@@ -126,7 +126,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       penDown = false;
       return parent;
     }
@@ -150,7 +150,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       penDown = true;
       return parent;
     }
@@ -174,7 +174,7 @@ public class ZPEUITurtleObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(BinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
       penDown = false;
       panel.clear();
       return parent;
