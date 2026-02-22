@@ -37,6 +37,8 @@
 
 <pre>
 
+import "zpe.lib.ui"
+
 ui = UIBuilder()
 ui.new_frame("Hello World", 12)
 
