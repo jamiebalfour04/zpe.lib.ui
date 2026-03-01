@@ -2,6 +2,7 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.components.BalfButton;
+import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEFunction;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -112,6 +113,12 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
       return "on";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
+
   }
 
   public class set_text_Command implements ZPEObjectNativeMethod {
@@ -145,6 +152,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
       return "set_text";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class set_enabled_Command implements ZPEObjectNativeMethod {
@@ -173,6 +185,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
 
     public String getName() {
       return "set_enabled";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -205,6 +222,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     public String getName() {
       return "set_foreground";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class set_background_Command implements ZPEObjectNativeMethod {
@@ -236,6 +258,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     public String getName() {
       return "set_background";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class set_font_size_Command implements ZPEObjectNativeMethod {
@@ -266,6 +293,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     public String getName() {
       return "set_font_size";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class set_tooltip_Command implements ZPEObjectNativeMethod {
@@ -294,6 +326,11 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
 
     public String getName() {
       return "set_tooltip";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 

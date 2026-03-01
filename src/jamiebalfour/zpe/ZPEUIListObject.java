@@ -1,6 +1,7 @@
 package jamiebalfour.zpe;
 
 import jamiebalfour.generic.JBBinarySearchTree;
+import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEFunction;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -73,6 +74,11 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public String getName() {
       return "on";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class add_item_Command implements ZPEObjectNativeMethod {
@@ -101,6 +107,11 @@ public class ZPEUIListObject extends ZPEUIItemObject {
 
     public String getName() {
       return "add_item";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -133,6 +144,11 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public String getName() {
       return "remove_item";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class clear_Command implements ZPEObjectNativeMethod {
@@ -161,6 +177,11 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public String getName() {
       return "clear";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class get_selected_index_Command implements ZPEObjectNativeMethod {
@@ -187,6 +208,11 @@ public class ZPEUIListObject extends ZPEUIItemObject {
 
     public String getName() {
       return "get_selected_index";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.STRING_TYPE};
     }
   }
 
@@ -216,6 +242,13 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public String getName() {
       return "get_selected_item";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.STRING_TYPE};
+    }
+
+
   }
 
 

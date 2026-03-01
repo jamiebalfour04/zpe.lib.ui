@@ -2,10 +2,7 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.JBBinarySearchTree;
-import jamiebalfour.zpe.core.ZPEHelperFunctions;
-import jamiebalfour.zpe.core.ZPEObject;
-import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
-import jamiebalfour.zpe.core.ZPEStructure;
+import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.exceptions.BreakPointHalt;
 import jamiebalfour.zpe.exceptions.ExitHalt;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
@@ -104,6 +101,12 @@ public class ZPEUIBuilderObject extends ZPEStructure {
     public String getName() {
       return "new_frame";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
 
   }
 }

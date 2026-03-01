@@ -66,6 +66,13 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
     public String getName() {
       return "set_id";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
+
   }
 
   public class get_id_Command implements ZPEObjectNativeMethod {
@@ -88,6 +95,11 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
     public String getName() {
       return "get_id";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.STRING_TYPE};
     }
   }
 
@@ -121,6 +133,11 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
 
     public String getName() {
       return "destroy";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 

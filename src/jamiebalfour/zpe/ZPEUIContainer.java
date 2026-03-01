@@ -2,6 +2,7 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.components.BalfPanel;
+import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
@@ -68,6 +69,11 @@ public class ZPEUIContainer extends ZPEUIItemObject{
       return "_construct";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class add_Command implements ZPEObjectNativeMethod {
@@ -103,6 +109,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
     public String getName() {
       return "add";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -141,6 +151,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
     public String getName() {
       return "set_background";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -185,6 +199,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     public String getName() {
       return "set_layout";
     }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class set_visible_Command implements ZPEObjectNativeMethod {
@@ -213,6 +231,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
     public String getName() {
       return "set_visible";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -245,6 +267,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     public String getName() {
       return "set_size";
     }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class set_border_Command implements ZPEObjectNativeMethod {
@@ -274,6 +300,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
     public String getName() {
       return "set_border";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -305,6 +335,10 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
     public String getName() {
       return "clear";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 

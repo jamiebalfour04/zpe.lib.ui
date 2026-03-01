@@ -2,6 +2,7 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.JBBinarySearchTree;
+import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.ZPEStructure;
@@ -59,6 +60,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
     public String getName() {
       return "move";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class move_Command implements ZPEObjectNativeMethod {
@@ -90,6 +96,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
     public String getName() {
       return "move";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class turn_Command implements ZPEObjectNativeMethod {
@@ -113,6 +124,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
     public String getName() {
       return "turn";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -138,6 +154,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
     public String getName() {
       return "pen_up";
     }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
   }
 
   public class pen_down_Command implements ZPEObjectNativeMethod {
@@ -161,6 +182,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
     public String getName() {
       return "pen_down";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -186,6 +212,11 @@ public class ZPEUITurtleObject extends ZPEStructure {
 
     public String getName() {
       return "clear";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 }

@@ -133,6 +133,12 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "add";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
+
   }
 
   public class set_title_Command implements ZPEObjectNativeMethod {
@@ -167,6 +173,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "set_title";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -207,6 +218,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "set_footer_text";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class set_size_Command implements ZPEObjectNativeMethod {
@@ -234,7 +250,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
       frame.setSize(HelperFunctions.stringToInteger(parameters.get("width").toString()), HelperFunctions.stringToInteger(parameters.get("height").toString()));
 
-      return null;
+      return parent;
     }
 
     @Override
@@ -244,6 +260,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "set_size";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -273,6 +294,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "create_container";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -310,6 +336,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "create_button";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class create_list_Command implements ZPEObjectNativeMethod {
@@ -337,6 +368,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "create_list";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -379,7 +415,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
         //lastY = y;
       }
 
-      return new ZPEString("");
+      return parent;
 
     }
 
@@ -390,6 +426,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
     @Override
     public int getRequiredPermissionLevel() {
       return 0;
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -426,6 +467,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "set_on_close";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class get_element_by_id_Command implements ZPEObjectNativeMethod {
@@ -456,6 +502,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "get_element_by_id";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class create_turtle_Command implements ZPEObjectNativeMethod {
@@ -483,6 +534,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "create_turtle";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
   }
 
@@ -523,6 +579,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "alert";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class set_always_on_top_Command implements ZPEObjectNativeMethod {
@@ -557,6 +618,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return "set_always_on_top";
     }
 
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
   }
 
   public class show_Command implements ZPEObjectNativeMethod {
@@ -585,6 +651,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "show";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
@@ -617,6 +688,11 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "hide";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
   }
