@@ -40,19 +40,19 @@
 import "zpe.lib.ui"
 
 ui = UIBuilder()
-ui.new_frame("Hello World", 12)
+ui->new_frame("Hello World", 12)
 
 frame = ui
-frame.set_size(400, 300)
+frame->set_size(400, 300)
 
-btn = frame.create_button("Click Me", 8)
+btn = frame->create_button("Click Me", 8)
 
-btn.on("click", function()
-    frame.alert("You clicked the button!", "ZPE")
+btn->on("click", function()
+    frame->alert("You clicked the button!", "ZPE")
 end function)
 
-frame.add(btn)
-frame.show()
+frame->add(btn)
+frame->show()
 </pre>
 
 <h2>Notes</h2>
