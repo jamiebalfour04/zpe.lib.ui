@@ -3,11 +3,11 @@ package jamiebalfour.zpe;
 import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.*;
-import jamiebalfour.zpe.exceptions.BreakPointHalt;
-import jamiebalfour.zpe.exceptions.ExitHalt;
-import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
-import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
-import jamiebalfour.zpe.interfaces.ZPEType;
+import jamiebalfour.zpe.core.exceptions.BreakPointHalt;
+import jamiebalfour.zpe.core.exceptions.ExitHalt;
+import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
+import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
+import jamiebalfour.zpe.core.interfaces.ZPEType;
 
 
 public class ZPEUIBuilderObject extends ZPEStructure {

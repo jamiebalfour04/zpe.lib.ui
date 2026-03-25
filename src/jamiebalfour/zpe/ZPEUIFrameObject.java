@@ -4,12 +4,12 @@ import jamiebalfour.HelperFunctions;
 import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.windows.BalfWindow;
 import jamiebalfour.zpe.core.*;
-import jamiebalfour.zpe.exceptions.MissingParameterException;
-import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
-import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
-import jamiebalfour.zpe.interfaces.ZPEType;
-import jamiebalfour.zpe.types.ZPEMap;
-import jamiebalfour.zpe.types.ZPEString;
+import jamiebalfour.zpe.core.exceptions.MissingParameterException;
+import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
+import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
+import jamiebalfour.zpe.core.interfaces.ZPEType;
+import jamiebalfour.zpe.core.types.ZPEMap;
+import jamiebalfour.zpe.core.types.ZPEString;
 
 import javax.swing.*;
 import java.awt.*;

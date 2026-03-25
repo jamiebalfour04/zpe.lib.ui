@@ -6,13 +6,13 @@ package jamiebalfour.zpe;
 
 import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.*;
-import jamiebalfour.zpe.exceptions.BreakPointHalt;
-import jamiebalfour.zpe.exceptions.ExitHalt;
-import jamiebalfour.zpe.exceptions.ZPERuntimeException;
-import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
-import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
-import jamiebalfour.zpe.interfaces.ZPEType;
-import jamiebalfour.zpe.types.ZPEString;
+import jamiebalfour.zpe.core.exceptions.BreakPointHalt;
+import jamiebalfour.zpe.core.exceptions.ExitHalt;
+import jamiebalfour.zpe.core.exceptions.ZPERuntimeException;
+import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
+import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
+import jamiebalfour.zpe.core.interfaces.ZPEType;
+import jamiebalfour.zpe.core.types.ZPEString;
 
 import javax.swing.*;
 import java.awt.*;

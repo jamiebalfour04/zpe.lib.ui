@@ -6,9 +6,9 @@ import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.ZPEStructure;
-import jamiebalfour.zpe.interfaces.ZPEObjectNativeMethod;
-import jamiebalfour.zpe.interfaces.ZPEPropertyWrapper;
-import jamiebalfour.zpe.interfaces.ZPEType;
+import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
+import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
+import jamiebalfour.zpe.core.interfaces.ZPEType;
 
 public class ZPEUITurtleObject extends ZPEStructure {
   private final ZPEUIFrameObject.TurtlePanel panel;
