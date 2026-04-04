@@ -12,6 +12,7 @@ import jamiebalfour.zpe.core.interfaces.ZPEType;
 import jamiebalfour.zpe.core.objects.ColourObject;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class ZPEUIButtonObject extends ZPEUIItemObject {
 
@@ -93,7 +94,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if (parameters.get("method") instanceof ZPEFunction) {
         ZPEFunction zf = (ZPEFunction) parameters.get("method");
@@ -135,7 +136,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       btn.setText(parameters.get("text").toString());
       respondToAction("set_text");
@@ -172,7 +173,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       boolean enabled = Boolean.parseBoolean(parameters.get("enabled").toString());
       btn.setEnabled(enabled);
       return parent;
@@ -206,7 +207,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       if(parameters.containsKey("colour") && parameters.get("colour") instanceof ColourObject){
         ColourObject colour = (ColourObject) parameters.get("colour");
         btn.setForeground(colour.getColour());
@@ -242,7 +243,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       if(parameters.containsKey("colour") && parameters.get("colour") instanceof ColourObject){
         ColourObject colour = (ColourObject) parameters.get("colour");
         btn.setBackground(colour.getColour());
@@ -278,7 +279,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       int size = Integer.parseInt(parameters.get("size").toString());
       Font oldFont = btn.getFont();
       btn.setFont(new Font(oldFont.getName(), oldFont.getStyle(), size));
@@ -313,7 +314,7 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       String text = parameters.get("text").toString();
       btn.setToolTipText(text);
       return parent;

@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ZPEUIFrameObject extends ZPEStructure {
 
@@ -113,7 +114,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if (parameters.get("component") instanceof ZPEUIItemObject) {
         ZPEUIItemObject obj = (ZPEUIItemObject) parameters.get("component");
@@ -154,7 +155,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if(!parameters.containsKey("title")) {
         throw new MissingParameterException("title", "set_title");
@@ -195,7 +196,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if(!parameters.containsKey("text")) {
         throw new MissingParameterException("text", "set_footer_text");
@@ -238,7 +239,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if(!parameters.containsKey("width")) {
         throw new MissingParameterException("width", "set_size");
@@ -282,7 +283,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUIContainer(getRuntime(), parent, _this);
     }
@@ -316,7 +317,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       int arc = 4;
 
@@ -356,7 +357,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUIListObject(getRuntime(), parent, _this);
     }
@@ -390,7 +391,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       int y;
       int a = 2;
@@ -448,7 +449,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if(parameters.containsKey("func") && parameters.get("func") instanceof ZPEFunction) {
         closeFunction = (ZPEFunction) parameters.get("func");
@@ -487,7 +488,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       String id = parameters.get("id").toString();
       return elements.get(new ZPEString(id));
@@ -522,7 +523,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       return new ZPEUITurtleObject(getRuntime(), parent, _this);
     }
@@ -555,7 +556,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if(!parameters.containsKey("text")) {
         throw new MissingParameterException("text", "alert");
@@ -599,7 +600,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       String enabled = parameters.get("enabled").toString();
 
@@ -638,7 +639,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       frame.setVisible(true);
 
       return parent;
@@ -673,7 +674,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       frame.setVisible(false);
 
       frame.dispose();

@@ -53,7 +53,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{"string"};
     }
 
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> params, ZPEObject parent) {
       String new_id = params.get("id").toString();
       ownerObj.changeId(id, new_id, parent);
       return parent;
@@ -85,7 +85,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> params, ZPEObject parent) {
       return new ZPEString(id);
     }
 
@@ -113,7 +113,7 @@ public abstract class ZPEUIItemObject extends ZPEStructure {
       return new String[]{};
     }
 
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> params, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> params, ZPEObject parent) {
       if (component != null) {
 
 

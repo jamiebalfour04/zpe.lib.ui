@@ -9,6 +9,8 @@ import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.core.interfaces.ZPEType;
 
+import java.util.HashMap;
+
 
 public class ZPEUIBuilderObject extends ZPEStructure {
 
@@ -41,7 +43,7 @@ public class ZPEUIBuilderObject extends ZPEStructure {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       String title = "";
       int arc = 0;

@@ -11,6 +11,7 @@ import jamiebalfour.zpe.core.interfaces.ZPEType;
 import jamiebalfour.zpe.core.types.ZPEString;
 
 import javax.swing.*;
+import java.util.HashMap;
 
 public class ZPEUIListObject extends ZPEUIItemObject {
 
@@ -55,7 +56,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
 
       if (parameters.get("method") instanceof ZPEFunction) {
         ZPEFunction zf = (ZPEFunction) parameters.get("method");
@@ -94,7 +95,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       model.addElement(parameters.get("text").toString());
       respondToAction("add_item");
       return parent;
@@ -128,7 +129,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       int index = Integer.parseInt(parameters.get("index").toString());
       if (index >= 0 && index < model.size()) {
         model.remove(index);
@@ -164,7 +165,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       model.clear();
       return parent;
     }
@@ -197,7 +198,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       return new ZPEString(lst.getSelectedIndex() + "");
     }
 
@@ -229,7 +230,7 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     }
 
     @Override
-    public ZPEType MainMethod(JBBinarySearchTree<String, ZPEType> parameters, ZPEObject parent) {
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       Object val = lst.getSelectedValue();
       return val != null ? new ZPEString(val.toString()) : new ZPEString("");
     }
