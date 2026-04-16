@@ -1,9 +1,9 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui.elements;
 
-import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.components.BalfButton;
+import jamiebalfour.zpe.ui.ZPEUIFrameObject;
+import jamiebalfour.zpe.ui.core.ZPEUIItemObject;
 import jamiebalfour.zpe.core.YASSByteCodes;
-import jamiebalfour.zpe.core.ZPEFunction;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
@@ -70,56 +70,10 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
       }
     });
 
-    addNativeMethod("on", new on_Command());
     addNativeMethod("set_text", new set_text_Command());
-    addNativeMethod("set_enabled", new set_enabled_Command());
     addNativeMethod("set_foreground", new set_foreground_Command());
     addNativeMethod("set_background", new set_background_Command());
     addNativeMethod("set_font_size", new set_font_size_Command());
-    addNativeMethod("set_tooltip", new set_tooltip_Command());
-  }
-
-
-  public class on_Command implements ZPEObjectNativeMethod {
-
-
-    @Override
-    public String[] getParameterNames() {
-      return new String[]{"action", "method"};
-    }
-
-    @Override
-    public String[] getParameterTypes() {
-      return new String[]{"string", "function"};
-    }
-
-    @Override
-    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
-
-      if (parameters.get("method") instanceof ZPEFunction) {
-        ZPEFunction zf = (ZPEFunction) parameters.get("method");
-        addAction(parameters.get("action").toString(), zf);
-      }
-
-
-      return parent;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-      return 0;
-    }
-
-    public String getName() {
-      return "on";
-    }
-
-    @Override
-    public byte[] returnTypes() {
-      return new byte[]{YASSByteCodes.OBJECT_TYPE};
-    }
-
-
   }
 
   public class set_text_Command implements ZPEObjectNativeMethod {
@@ -158,40 +112,6 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
       return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
-  }
-
-  public class set_enabled_Command implements ZPEObjectNativeMethod {
-
-    @Override
-    public String[] getParameterNames() {
-      return new String[]{"enabled"};
-    }
-
-    @Override
-    public String[] getParameterTypes() {
-      return new String[]{"boolean"};
-    }
-
-    @Override
-    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
-      boolean enabled = Boolean.parseBoolean(parameters.get("enabled").toString());
-      btn.setEnabled(enabled);
-      return parent;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-      return 0;
-    }
-
-    public String getName() {
-      return "set_enabled";
-    }
-
-    @Override
-    public byte[] returnTypes() {
-      return new byte[]{YASSByteCodes.OBJECT_TYPE};
-    }
   }
 
   public class set_foreground_Command implements ZPEObjectNativeMethod {
@@ -293,40 +213,6 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
 
     public String getName() {
       return "set_font_size";
-    }
-
-    @Override
-    public byte[] returnTypes() {
-      return new byte[]{YASSByteCodes.OBJECT_TYPE};
-    }
-  }
-
-  public class set_tooltip_Command implements ZPEObjectNativeMethod {
-
-    @Override
-    public String[] getParameterNames() {
-      return new String[]{"text"};
-    }
-
-    @Override
-    public String[] getParameterTypes() {
-      return new String[]{"string"};
-    }
-
-    @Override
-    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
-      String text = parameters.get("text").toString();
-      btn.setToolTipText(text);
-      return parent;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-      return 0;
-    }
-
-    public String getName() {
-      return "set_tooltip";
     }
 
     @Override

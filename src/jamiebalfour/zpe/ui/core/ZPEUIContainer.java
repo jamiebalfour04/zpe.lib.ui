@@ -1,7 +1,7 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui.core;
 
-import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.components.BalfPanel;
+import jamiebalfour.zpe.ui.ZPEUIFrameObject;
 import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
@@ -14,7 +14,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.HashMap;
 
-public class ZPEUIContainer extends ZPEUIItemObject{
+public class ZPEUIContainer extends ZPEUIItemObject {
 
   BalfPanel panel;
   HashMap<String, ZPEUIItemObject> children = new HashMap<>();
@@ -78,15 +78,14 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
   public class add_Command implements ZPEObjectNativeMethod {
 
-
     @Override
     public String[] getParameterNames() {
-      return new String[]{"component"};
+      return new String[]{"component", "position"};
     }
 
     @Override
     public String[] getParameterTypes() {
-      return new String[]{"object"};
+      return new String[]{"object", "string"};
     }
 
     @Override
@@ -94,10 +93,42 @@ public class ZPEUIContainer extends ZPEUIItemObject{
 
       if (parameters.get("component") instanceof ZPEUIItemObject) {
         ZPEUIItemObject obj = (ZPEUIItemObject) parameters.get("component");
-        children.put(obj.id, obj);
-        panel.add(obj.component);
+        children.put(obj.getId(), obj);
+
+        if (parameters.containsKey("position")) {
+          String position = parameters.get("position").toString().toLowerCase();
+
+          if (panel.getLayout() instanceof BorderLayout) {
+            switch (position) {
+              case "north":
+                panel.add(obj.component, BorderLayout.NORTH);
+                break;
+              case "south":
+                panel.add(obj.component, BorderLayout.SOUTH);
+                break;
+              case "east":
+                panel.add(obj.component, BorderLayout.EAST);
+                break;
+              case "west":
+                panel.add(obj.component, BorderLayout.WEST);
+                break;
+              case "center":
+                panel.add(obj.component, BorderLayout.CENTER);
+                break;
+              default:
+                panel.add(obj.component);
+                break;
+            }
+          } else {
+            panel.add(obj.component);
+          }
+        } else {
+          panel.add(obj.component);
+        }
       }
 
+      panel.revalidate();
+      panel.repaint();
 
       return parent;
     }
@@ -114,7 +145,6 @@ public class ZPEUIContainer extends ZPEUIItemObject{
     public byte[] returnTypes() {
       return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
-
   }
 
   public class set_background_Command implements ZPEObjectNativeMethod {

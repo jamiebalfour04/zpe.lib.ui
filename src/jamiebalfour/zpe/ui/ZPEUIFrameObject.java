@@ -1,23 +1,30 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.ui.windows.BalfWindow;
+import jamiebalfour.zpe.ui.core.ZPEFileChooser;
 import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.core.exceptions.MissingParameterException;
 import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.core.interfaces.ZPEType;
+import jamiebalfour.zpe.core.objects.ImageObject;
+import jamiebalfour.zpe.core.types.ZPEList;
 import jamiebalfour.zpe.core.types.ZPEMap;
 import jamiebalfour.zpe.core.types.ZPEString;
+import jamiebalfour.zpe.ui.core.ZPEUIContainer;
+import jamiebalfour.zpe.ui.core.ZPEUIItemObject;
+import jamiebalfour.zpe.ui.elements.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ZPEUIFrameObject extends ZPEStructure {
+public class ZPEUIFrameObject extends ZPEUIActionable {
 
   private static final long serialVersionUID = 13L;
   private final ZPEMap elements = new ZPEMap();
@@ -35,6 +42,9 @@ public class ZPEUIFrameObject extends ZPEStructure {
       //Ignored
     }
 
+
+
+
     addNativeMethod("add", new add_Command());
     addNativeMethod("set_title", new set_title_Command());
     addNativeMethod("set_footer_text", new set_footer_text_Command());
@@ -44,12 +54,19 @@ public class ZPEUIFrameObject extends ZPEStructure {
     addNativeMethod("get_element_by_id", new get_element_by_id_Command());
     addNativeMethod("create_container", new create_container_Command());
     addNativeMethod("create_button", new create_button_Command());
+    addNativeMethod("create_label", new create_label_Command());
+    addNativeMethod("create_text_field", new create_text_field_Command());
+    addNativeMethod("create_checkbox", new create_checkbox_Command());
+    addNativeMethod("create_combo_box", new create_combo_box_Command());
+    addNativeMethod("create_image", new create_image_Command());
     addNativeMethod("create_list", new create_list_Command());
     addNativeMethod("create_quadratic", new create_quadratic_Command());
     addNativeMethod("alert", new alert_Command());
     addNativeMethod("set_always_on_top", new set_always_on_top_Command());
     addNativeMethod("show", new show_Command());
     addNativeMethod("hide", new hide_Command());
+    addNativeMethod("choose_file", new choose_file_Command());
+    addNativeMethod("choose_folder", new choose_folder_Command());
 
   }
 
@@ -63,7 +80,46 @@ public class ZPEUIFrameObject extends ZPEStructure {
     if (elements.containsKey(new ZPEString(id))) {
       elements.remove(new ZPEString(id));
     }
+  }
 
+  void attachActions(){
+    MouseListener mouseListener = new MouseListener() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+          respondToAction("double_click");
+        } else if (e.getButton() == 1) {
+          respondToAction("click");
+        } else if (e.getButton() == 2) {
+          respondToAction("middle_click");
+        } else if (e.getButton() == 3) {
+          respondToAction("right_click");
+        }
+      }
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+
+      }
+    };
+    frame.addMouseListener(mouseListener);
+    panel.addMouseListener(mouseListener);
+    setSuitableActions(new String[]{"click", "double_click", "middle_click", "right_click"});
   }
 
   public static class TurtlePanel extends JPanel {
@@ -118,7 +174,7 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
       if (parameters.get("component") instanceof ZPEUIItemObject) {
         ZPEUIItemObject obj = (ZPEUIItemObject) parameters.get("component");
-        addElement(obj.id, obj, obj.component);
+        addElement(obj.getId(), obj, obj.component);
       }
 
 
@@ -335,6 +391,176 @@ public class ZPEUIFrameObject extends ZPEStructure {
 
     public String getName() {
       return "create_button";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+
+  }
+
+  public class create_label_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+      return new ZPEUILabelObject(getRuntime(), parent, (ZPEUIFrameObject) parent);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_label";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+  }
+
+  public class create_text_field_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+      return new ZPEUITextFieldObject(getRuntime(), parent, (ZPEUIFrameObject) parent);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_text_field";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+  }
+
+  public class create_checkbox_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+      return new ZPEUICheckBoxObject(getRuntime(), parent, (ZPEUIFrameObject) parent);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_checkbox";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+  }
+
+  public class create_combo_box_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+      return new ZPEUIComboBoxObject(getRuntime(), parent, (ZPEUIFrameObject) parent);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_combo_box";
+    }
+
+    @Override
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.OBJECT_TYPE};
+    }
+  }
+
+  public class create_image_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"image"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"object"};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+
+      ZPEUIImageObject i = new ZPEUIImageObject(getRuntime(), parent, _this);
+      if (parameters.containsKey("image") && parameters.get("image") instanceof ImageObject) {
+        ImageObject imgObj = (ImageObject) parameters.get("image");
+        i.image = imgObj.getImage();
+        i.refreshImage();
+      }
+
+      return i;
+
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "create_image";
     }
 
     @Override
@@ -562,11 +788,12 @@ public class ZPEUIFrameObject extends ZPEStructure {
         throw new MissingParameterException("text", "alert");
       }
 
-      if(!parameters.containsKey("title")){
-        throw new MissingParameterException("text", "alert");
+      String title = frame.getTitle();
+      if(parameters.containsKey("title")){
+        title = parameters.get("title").toString();
       }
 
-      JOptionPane.showMessageDialog(frame.getContentPane(), parameters.get("text").toString(), parameters.get("title").toString(), JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ZPEHelperFunctions.getLogo().getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH)));
+      JOptionPane.showMessageDialog(frame.getContentPane(), parameters.get("text").toString(), title, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(ZPEHelperFunctions.getLogo().getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH)));
 
       return parent;
     }
@@ -696,6 +923,80 @@ public class ZPEUIFrameObject extends ZPEStructure {
       return new byte[]{YASSByteCodes.OBJECT_TYPE};
     }
 
+  }
+
+  public static class choose_file_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{"extensions"};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{"list"};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+
+      String[] exts = null;
+      if(parameters.containsKey("extensions")) {
+        ZPEList extensions = (ZPEList) parameters.get("extensions");
+        exts = new String[extensions.size()];
+        for(int i = 0; i < extensions.size(); i++) {
+          exts[i] = extensions.get(i).toString();
+        }
+      }
+
+      String path = ZPEFileChooser.chooseFile(exts);
+      return new ZPEString(path == null ? "" : path);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "choose_file";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.STRING_TYPE};
+    }
+  }
+
+  public static class choose_folder_Command implements ZPEObjectNativeMethod {
+
+    @Override
+    public String[] getParameterNames() {
+      return new String[]{};
+    }
+
+    @Override
+    public String[] getParameterTypes() {
+      return new String[]{};
+    }
+
+    @Override
+    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
+      String path = ZPEFileChooser.chooseFolder();
+      return new ZPEString(path == null ? "" : path);
+    }
+
+    @Override
+    public int getRequiredPermissionLevel() {
+      return 0;
+    }
+
+    public String getName() {
+      return "choose_folder";
+    }
+
+    public byte[] returnTypes() {
+      return new byte[]{YASSByteCodes.STRING_TYPE};
+    }
   }
 
 

@@ -1,7 +1,6 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.*;
 import jamiebalfour.zpe.core.exceptions.BreakPointHalt;
 import jamiebalfour.zpe.core.exceptions.ExitHalt;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 
 public class ZPEUIBuilderObject extends ZPEStructure {
 
-  protected ZPEUIBuilderObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent) {
+  public ZPEUIBuilderObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper parent) {
     super(z, parent, "ZPEUIBuilder");
     if (jamiebalfour.zpe.core.ZPEHelperFunctions.isHeadless()) {
       if(ZPEHelperFunctions.isNativeImage()){
@@ -63,6 +62,8 @@ public class ZPEUIBuilderObject extends ZPEStructure {
 
 
 
+      ZPEUIActionable.FRAMES.add(f);
+
 
       f.frame.initialise();
 
@@ -91,8 +92,10 @@ public class ZPEUIBuilderObject extends ZPEStructure {
         }
       });
 
+      f.attachActions();
 
-      return parent;
+
+      return f;
     }
 
     @Override

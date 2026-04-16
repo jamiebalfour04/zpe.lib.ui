@@ -1,7 +1,6 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui;
 
 import jamiebalfour.HelperFunctions;
-import jamiebalfour.generic.JBBinarySearchTree;
 import jamiebalfour.zpe.core.YASSByteCodes;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;

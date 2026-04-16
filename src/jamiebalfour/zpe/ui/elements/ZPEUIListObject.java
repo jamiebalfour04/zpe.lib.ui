@@ -1,14 +1,14 @@
-package jamiebalfour.zpe;
+package jamiebalfour.zpe.ui.elements;
 
-import jamiebalfour.generic.JBBinarySearchTree;
+import jamiebalfour.zpe.ui.ZPEUIFrameObject;
 import jamiebalfour.zpe.core.YASSByteCodes;
-import jamiebalfour.zpe.core.ZPEFunction;
 import jamiebalfour.zpe.core.ZPEObject;
 import jamiebalfour.zpe.core.ZPERuntimeEnvironment;
 import jamiebalfour.zpe.core.interfaces.ZPEObjectNativeMethod;
 import jamiebalfour.zpe.core.interfaces.ZPEPropertyWrapper;
 import jamiebalfour.zpe.core.interfaces.ZPEType;
 import jamiebalfour.zpe.core.types.ZPEString;
+import jamiebalfour.zpe.ui.core.ZPEUIItemObject;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -19,11 +19,12 @@ public class ZPEUIListObject extends ZPEUIItemObject {
 
   JList<String> lst;
   DefaultListModel<String> model;
+  ZPEUIListObject _this = this;
 
   public ZPEUIListObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject ownerObject) {
-    super(z, p, "ZPEButton", ownerObject);
+    super(z, p, "ZPEUIList", ownerObject);
 
-    setSuitableActions(new String[]{"add_item"});
+    setSuitableActions(new String[]{"add_item", "selection_changed", "double_click", "click", "middle_click", "right_click"});
 
 
     model = new DefaultListModel<>();
@@ -40,46 +41,26 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     addNativeMethod("clear", new clear_Command());
     addNativeMethod("get_selected_index", new get_selected_index_Command());
     addNativeMethod("get_selected_item", new get_selected_item_Command());
-  }
 
-  public class on_Command implements ZPEObjectNativeMethod {
+    lst.addListSelectionListener(e -> respondToAction("selection_changed"));
+    lst.addMouseListener(new java.awt.event.MouseAdapter() {
+      @Override
+      public void mouseClicked(java.awt.event.MouseEvent e) {
+        if (e.getComponent() == lst) {
 
+          if (e.getClickCount() == 2) {
+            respondToAction("double_click");
+          } else if (e.getButton() == 1) {
+            respondToAction("click");
+          } else if (e.getButton() == 2) {
+            respondToAction("middle_click");
+          } else if (e.getButton() == 3) {
+            respondToAction("right_click");
+          }
 
-    @Override
-    public String[] getParameterNames() {
-      return new String[]{"action", "method"};
-    }
-
-    @Override
-    public String[] getParameterTypes() {
-      return new String[]{"string", "function"};
-    }
-
-    @Override
-    public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
-
-      if (parameters.get("method") instanceof ZPEFunction) {
-        ZPEFunction zf = (ZPEFunction) parameters.get("method");
-        addAction(parameters.get("action").toString(), zf);
+        }
       }
-
-
-      return parent;
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-      return 0;
-    }
-
-    public String getName() {
-      return "on";
-    }
-
-    @Override
-    public byte[] returnTypes() {
-      return new byte[]{YASSByteCodes.OBJECT_TYPE};
-    }
+    });
   }
 
   public class add_item_Command implements ZPEObjectNativeMethod {
@@ -98,7 +79,8 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       model.addElement(parameters.get("text").toString());
       respondToAction("add_item");
-      return parent;
+
+      return _this;
     }
 
     @Override
@@ -134,7 +116,8 @@ public class ZPEUIListObject extends ZPEUIItemObject {
       if (index >= 0 && index < model.size()) {
         model.remove(index);
       }
-      return parent;
+
+      return _this;
     }
 
     @Override
@@ -167,7 +150,8 @@ public class ZPEUIListObject extends ZPEUIItemObject {
     @Override
     public ZPEType run(HashMap<String, ZPEType> parameters, ZPEObject parent) {
       model.clear();
-      return parent;
+
+      return _this;
     }
 
     @Override

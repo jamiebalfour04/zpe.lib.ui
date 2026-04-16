@@ -1,4 +1,4 @@
-import jamiebalfour.zpe.ZPEUIBuilderObject;
+import jamiebalfour.zpe.ui.ZPEUIBuilderObject;
 import jamiebalfour.zpe.core.ZPEModule;
 import jamiebalfour.zpe.core.ZPEStructure;
 import jamiebalfour.zpe.core.interfaces.ZPECustomFunction;
@@ -11,6 +11,10 @@ public class Plugin implements ZPELibrary {
   public static void main(String[] args) {
     System.out.println("zpe.lib.ui is a plugin for ZPE.");
   }
+
+
+
+
 
   @Override
   public Map<String, ZPECustomFunction> getFunctions() {
