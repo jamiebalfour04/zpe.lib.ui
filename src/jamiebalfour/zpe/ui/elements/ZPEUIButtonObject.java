@@ -34,12 +34,13 @@ public class ZPEUIButtonObject extends ZPEUIItemObject {
   public ZPEUIButtonObject(ZPERuntimeEnvironment z, ZPEPropertyWrapper p, ZPEUIFrameObject owner, String text, int arc) {
     super(z, p, "ZPEButton", owner);
 
-    BalfButton obj = new BalfButton(text, arc);
-    obj.setSize(100, 100);
-    obj.setLocation(new Point(100, 100));
+
 
     setSuitableActions(new String[]{"double_click", "click", "middle_click", "right_click", "set_text"});
 
+    BalfButton obj = new BalfButton(text, arc);
+    obj.setSize(100, 100);
+    obj.setLocation(new Point(100, 100));
     this.btn = obj;
 
 

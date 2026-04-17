@@ -3,6 +3,7 @@ import jamiebalfour.zpe.core.ZPEModule;
 import jamiebalfour.zpe.core.ZPEStructure;
 import jamiebalfour.zpe.core.interfaces.ZPECustomFunction;
 import jamiebalfour.zpe.core.interfaces.ZPELibrary;
+import jamiebalfour.zpe.ui.ZPEUIModule;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,9 @@ public class Plugin implements ZPELibrary {
 
   @Override
   public Map<String, ZPEModule> getModules() {
-    return new HashMap<>();
+    Map<String, ZPEModule> m = new HashMap<>();
+    m.put("UI", new ZPEUIModule());
+    return m;
   }
 
   @Override
